@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>使用JS弹窗</title>
+    <script src="openAlert.js"></script>
+</head>
+<body>
+<script>
+    var height = window.innerHeight;
+    var width = window.innerWidth;
+    var newWindow;
+    var node_html = document.documentElement;
+    var nodes = node_html.childNodes;
+    nodes = Array.prototype.slice.call(nodes, 0);
+    var node_body = nodes[2];
+    var childs = Array.prototype.slice.call(node_body.childNodes, 0);
+//    document.write(nodes);
+
+    function Resize(){
+//        document.write(childs);
+        var lastchild = node_body.lastChild;
+        node_body.removeChild(lastchild);
+//        document.write(Array.prototype.slice.call(node_body.childNodes, 0));
+        window.resizeTo(500,500);
+        newWindow = window.open("http://www.baidu.com", "这是百度", "height=600,width=600,resizable=yes");
+    };
+    function temp(){
+        setTimeout("Resize()", 1000);
+    };
+    function ResizeNewWindow(){
+        if(newWindow != undefined && newWindow != null){
+            document.write(typeof newWindow);
+//            newWindow.opener = null;
+            newWindow.close();
+        }
+    }
+    function getPathName(){
+        var long_name = location.href;
+        var path = long_name.split(":");
+//        document.write(path);
+        var paths = path[2].split("/");
+        for(var i = 0; i<paths.length; i++) {
+            document.write(paths[i] + "</br>");
+        }
+    }
+</script>
+<input type="button" value="改变窗口大小" onclick="Resize()">
+<input type="button" value="关闭窗口" onclick="ResizeNewWindow()">
+</body>
+</html>
